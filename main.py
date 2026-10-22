@@ -462,7 +462,7 @@ async def agent_card(request: Request):
 async def message_send(request: Request):
     principal = guard(request)
     ctype = request.headers.get("content-type", "").split(";")[0].strip().lower()
-    if ctype not in ("application/a2a+json", "application/json"):
+    if ctype != "application/a2a+json":
         raise ApiError(415, "UNSUPPORTED_MEDIA_TYPE", "Unsupported media type")
     try:
         body = json.loads(await request.body())
