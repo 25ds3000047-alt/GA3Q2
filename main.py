@@ -265,7 +265,11 @@ def decide(packages):
     cached.update(fresh)
     result = []
     for k, p in zip(keys, packages):
-        result.append(cached[k] if k in cached else fallback_decision(p))
+        if k in cached:
+            result.append(cached[k])
+        else:
+            print("DECISION_FALLBACK: model decision missing or invalid", flush=True)
+            result.append(fallback_decision(p))
     return result
 
 
